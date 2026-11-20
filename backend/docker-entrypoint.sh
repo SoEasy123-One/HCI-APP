@@ -1,11 +1,12 @@
 #!/bin/sh
 set -e
 
-echo ">>> Installing Composer dependencies..."
-composer install --no-interaction --prefer-dist
+echo ">>> Caching configuration and routes..."
+php artisan config:cache
+php artisan route:cache
 
 echo ">>> Running database migrations..."
 php artisan migrate --force
 
-echo ">>> Starting PHP-FPM..."
+echo ">>> Starting Apache..."
 exec "$@"
